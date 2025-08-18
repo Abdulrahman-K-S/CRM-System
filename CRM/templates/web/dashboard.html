@@ -6,7 +6,7 @@
 <h1 style="padding-left: 50px;">Welcome to the dashboard page, <b>{{ user }}</b></h1>
 
 <div style="padding: 0px 0px 25px 50px;">
-    <a href="{% url 'createclient' %}" class="btn btn-outline-primary">Create Client</a>
+    <a href="{% url 'createclient' %}" class="btn btn-outline-primary">Create Client &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></a>
 </div>
 
 <hr style="border: 1px solid #4564df; margin: 0px 40px; margin-bottom: 25px;">
@@ -17,7 +17,7 @@
     <form action="{% url 'search_clients' %}" method="get">
         <input type="search" name="query" placeholder="Search through clients (id, client name or client category)" class="form-control mr-sm-2">
         &nbsp;
-        <button type="submit" class="btn btn-outline-primary w-100 btn-block p-2">Search</button>
+        <button type="submit" class="btn btn-outline-primary w-100 btn-block p-2">Search &nbsp; <i class="fa fa-search" aria-hidden="true"></i></button>
     </form>
 </div>
 
@@ -51,7 +51,7 @@
                         <td>{{client.client_phone_number}}</td>
                         <td>{{client.client_address}}</td>
                         <td>{{client.created_at}}</td>
-                        <td><a href="{% url 'view_client' client.id %}" class="btn btn-outline-primary btn-sm">View</a></td>
+                        <td><a href="{% url 'view_client' client.id %}" class="btn btn-outline-primary btn-sm">View &nbsp; <i class="fa fa-search" aria-hidden="true"></i></a></td>
                     </tr>
                 {% endfor %}
             {% else %}

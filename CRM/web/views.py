@@ -120,3 +120,7 @@ def search_clients(request):
     except Exception as e:
         logger.error('Error during search_clients function: %s', e)
     return render(request, 'web/search.html', context={'results': results, 'query': query})
+
+
+def custom_404_page(request, exception):
+    return render(request, 'web/404.html', status=404)
