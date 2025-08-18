@@ -3,9 +3,47 @@
 {% block content %}
 
 <br>
-<h1>Welcome to the dashboard page, <b>{{ user }}</b></h1>
-<!-- <hr style="border: 1px solid #344794; margin: 35px 210px;"> -->
+<h1 style="padding-left: 50px;">Welcome to the dashboard page, <b>{{ user }}</b></h1>
 
-<a href="{% url 'createclient' %}" class="btn btn-outline-primary">Create Client</a>
+<div style="padding: 0px 0px 25px 50px;">
+    <a href="{% url 'createclient' %}" class="btn btn-outline-primary">Create Client</a>
+</div>
+
+<hr style="border: 1px solid #4564df; margin: 0px 40px; margin-bottom: 25px;">
+
+<div class="text-center" style="padding-left: 40px; padding-right: 40px;">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+            <th scope="col">ID</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Category</th>
+            <th scope="col">Phone Number</th>
+            <th scope="col">Address</th>
+            <th scope="col">Added At</th>
+            <th scope="col">View</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for client in clients %}
+                <tr>
+                    <th scope="row">{{client.id}}</th>
+                    <td>{{client.client_first_name}}</td>
+                    <td>{{client.client_last_name}}</td>
+                    <td>{{client.client_email}}</td>
+                    <th>{{client.client_category}}</th>
+                    <td>{{client.client_phone_number}}</td>
+                    <td>{{client.client_address}}</td>
+                    <td>{{client.created_at}}</td>
+                    <td><a href="{% url 'view_client' client.id %}" class="btn btn-outline-primary btn-sm">View</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+</div>
 
 {% endblock %}

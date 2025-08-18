@@ -1,7 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import RegisterUserForm, LoginUserForm, CreateClientForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+
+from . import models
 
 
 def index(request):
@@ -50,7 +52,8 @@ def user_logout(request):
 
 @login_required(login_url='login')
 def dashboard(request):
-    return render(request, 'web/dashboard.html')
+    clients = models.Client.objects.all()
+    return render(request, 'web/dashboard.html', context={'clients': clients})
 
 
 @login_required(login_url='login')
@@ -67,3 +70,9 @@ def create_client(request):
 
     context = {'form': form}
     return render(request, 'web/create-client.html', context)
+
+@login_required(login_url='login')
+def view_client(request, client_id):
+    client_object = get_object_or_404(models.Client, id=client_id)
+    context = {'client': client_object}
+    return render(request, 'web/view-client.html', context)
