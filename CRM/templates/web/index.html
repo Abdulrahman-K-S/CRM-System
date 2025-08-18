@@ -2,6 +2,19 @@
 
 {% block content %}
 
+<div class="text-center">
+    <br><br><br>
+    <h1>Django - CRM System ..... Your gateway to management!</h1>
+    <br><br>
+    <h5><b>Keep track of your clients effectivly</b></h5>
 
+    <hr style="border: 1px solid #344794; margin: 35px 210px;">
+
+    {% if user.is_authenticated %}
+        <a href="{% url 'dashboard' %}" class="btn btn-outline-primary">My Dashboard</a>
+    {% else %}
+        <a href="{% url 'register' %}" class="btn btn-outline-primary">Register</a>
+    {% endif %}
+</div>
 
 {% endblock %}

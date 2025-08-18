@@ -1,1 +1,11 @@
-<h1>Welcome to our system</h1><a href="{% url 'logout' %}">logout</a>
+{% extends 'base.html' %}
+
+{% block content %}
+
+<br>
+<h1>Welcome to the dashboard page, <b>{{ user }}</b></h1>
+<!-- <hr style="border: 1px solid #344794; margin: 35px 210px;"> -->
+
+<a href="{% url 'createclient' %}" class="btn btn-outline-primary">Create Client</a>
+
+{% endblock %}

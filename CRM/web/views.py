@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import RegisterUserForm, LoginUserForm
+from .forms import RegisterUserForm, LoginUserForm, CreateClientForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
@@ -47,6 +47,23 @@ def user_logout(request):
     logout(request)
     return redirect('login')
 
+
 @login_required(login_url='login')
 def dashboard(request):
     return render(request, 'web/dashboard.html')
+
+
+@login_required(login_url='login')
+def create_client(request):
+    form = CreateClientForm()
+
+    if request.method == 'POST':
+        form = CreateClientForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard')
+    else:
+        form = CreateClientForm()
+
+    context = {'form': form}
+    return render(request, 'web/create-client.html', context)
