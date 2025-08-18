@@ -8,15 +8,20 @@
     
     <h2>{{client.client_first_name|capfirst}} {{client.client_last_name}}</h2>
 
-    <h4>
-        <p><strong>ID: </strong>{{client.id}}</p>
-        <p><strong>Full Name: </strong>{{client.client_first_name|capfirst}} {{client.client_last_name}}</p>
-        <p><strong>Email: </strong>{{client.client_email}}</p>
-        <p><strong>Phone Number: </strong>{{client.client_phone_number}}</p>
-        <p><strong>Category: </strong>{{client.client_category}}</p>
-        <p><strong>Address: </strong>{{client.client_address}}</p>
-        <p><strong>Creation Date: </strong>{{client.created_at}}</p>
-    </h4>
+    <div class="cart-body">
+        <h4>
+            <p><strong>ID: </strong>{{client.id}}</p>
+            <p><strong>Full Name: </strong>{{client.client_first_name|capfirst}} {{client.client_last_name}}</p>
+            <p><strong>Email: </strong>{{client.client_email}}</p>
+            <p><strong>Phone Number: </strong>{{client.client_phone_number}}</p>
+            <p><strong>Category: </strong>{{client.client_category}}</p>
+            <p><strong>Address: </strong>{{client.client_address}}</p>
+            <p><strong>Creation Date: </strong>{{client.created_at}}</p>
+        </h4>
+    </div>
+
+    <a href="{% url 'dashboard' %}" class="btn btn-outline-light">Return</a>
+    <a href="{% url 'update_client' client.id %}" class="btn btn-outline-light">Update Client</a>
 </div>
 
 {% endblock %}

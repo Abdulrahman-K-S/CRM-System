@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import RegisterUserForm, LoginUserForm, CreateClientForm
+from .forms import RegisterUserForm, LoginUserForm, CreateClientForm, UpdateClientForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
@@ -71,8 +71,22 @@ def create_client(request):
     context = {'form': form}
     return render(request, 'web/create-client.html', context)
 
+
 @login_required(login_url='login')
 def view_client(request, client_id):
     client_object = get_object_or_404(models.Client, id=client_id)
     context = {'client': client_object}
     return render(request, 'web/view-client.html', context)
+
+
+@login_required(login_url='login')
+def update_client(request, client_id):
+    client_object = get_object_or_404(models.Client, id=client_id)
+    form = UpdateClientForm(instance=client_object)
+    if request.method == 'POST':
+        form = UpdateClientForm(request.POST, instance=client_object)
+        if form.is_valid():
+            form.save()
+            return redirect('view_client', client_id=client_id)
+    context = {'form': form}
+    return render(request, 'web/update-client.html', context)
