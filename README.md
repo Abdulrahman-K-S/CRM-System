@@ -46,7 +46,7 @@ Interact with the live demo:
 ```bash
 CRM-System/
 ├─ CRM/                  # Project package (settings, urls, wsgi)
-├─ web/                  # App: views, models, forms, templates
+├─ web/                  # App: views, models, forms
 ├─ templates/            # Base and shared templates
 ├─ manage.py
 └─ requirements.txt
