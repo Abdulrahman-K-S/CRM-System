@@ -2,24 +2,7 @@
 
 {% block content %}
 
-<br>
-<h1 style="padding-left: 50px;">Welcome to the dashboard page, <b>{{ user }}</b></h1>
-
-<div style="padding: 0px 0px 25px 50px;">
-    <a href="{% url 'createclient' %}" class="btn btn-outline-primary">Create Client</a>
-</div>
-
-<hr style="border: 1px solid #4564df; margin: 0px 40px; margin-bottom: 25px;">
-
-<div class="text-center" style="margin: 0px 100px ;">
-    <form action="{% url 'search_clients' %}" method="get">
-        <input type="search" name="query" placeholder="Search through clients (id, client name or client category)" class="form-control mr-sm-2">
-        &nbsp;
-        <button type="submit" class="btn btn-outline-primary w-100 btn-block p-2">Search</button>
-    </form>
-</div>
-
-<hr style="border: 1px solid #4564df; margin: 20px 40px;">
+<br><br><br>
 
 <div class="text-center" style="padding-left: 40px; padding-right: 40px;">
     <table class="table table-hover">
@@ -38,8 +21,8 @@
         </thead>
 
         <tbody>
-            {% if clients %}
-                {% for client in clients %}
+            {% if results %}
+                {% for client in results %}
                     <tr>
                         <th scope="row">{{client.id}}</th>
                         <td>{{client.client_first_name}}</td>
@@ -56,7 +39,7 @@
                 <tr>
                     <td colspan="9" class="text-center">
                         <div class="alert alert-info" role="alert">
-                            No clients are added yet
+                            No clients found with "{{query}}"
                         </div>
                     </td>
                 </tr>
@@ -64,6 +47,10 @@
         </tbody>
 
     </table>
+
+    <br>
+    <a href="{% url 'dashboard' %}" class="btn btn-outline-light">Return</a>
 </div>
+
 
 {% endblock %}

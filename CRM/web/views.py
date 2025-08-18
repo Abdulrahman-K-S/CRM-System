@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .forms import RegisterUserForm, LoginUserForm, CreateClientForm, UpdateClientForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
+import logging
 
 from . import models
 
@@ -97,3 +99,17 @@ def delete_client(request, client_id):
     client_object = get_object_or_404(models.Client, id=client_id)
     client_object.delete()
     return redirect('dashboard')
+
+
+logger = logging.getLogger(__name__)
+
+@login_required(login_url='login')
+def search_clients(request):
+    query = request.GET.get('query')
+    results = []
+    try:
+        if query:
+            results = models.Client.objects.filter(Q(client_first_name__icontains=query) | Q(id__icontains=query))
+    except Exception as e:
+        logger.error('Error during search_clients function: %s', e)
+    return render(request, 'web/search.html', context={'results': results, 'query': query})
