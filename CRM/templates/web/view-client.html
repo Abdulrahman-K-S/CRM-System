@@ -20,8 +20,10 @@
         </h4>
     </div>
 
+    <br>
     <a href="{% url 'dashboard' %}" class="btn btn-outline-light">Return</a>
     <a href="{% url 'update_client' client.id %}" class="btn btn-outline-light">Update Client</a>
+    <a href="{% url 'delete_client' client.id %}" class="btn btn-outline-danger">Delete Client</a>
 </div>
 
 {% endblock %}

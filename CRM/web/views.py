@@ -90,3 +90,10 @@ def update_client(request, client_id):
             return redirect('view_client', client_id=client_id)
     context = {'form': form}
     return render(request, 'web/update-client.html', context)
+
+
+@login_required(login_url='login')
+def delete_client(request, client_id):
+    client_object = get_object_or_404(models.Client, id=client_id)
+    client_object.delete()
+    return redirect('dashboard')

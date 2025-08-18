@@ -28,19 +28,29 @@
         </thead>
 
         <tbody>
-            {% for client in clients %}
+            {% if clients %}
+                {% for client in clients %}
+                    <tr>
+                        <th scope="row">{{client.id}}</th>
+                        <td>{{client.client_first_name}}</td>
+                        <td>{{client.client_last_name}}</td>
+                        <td>{{client.client_email}}</td>
+                        <th>{{client.client_category}}</th>
+                        <td>{{client.client_phone_number}}</td>
+                        <td>{{client.client_address}}</td>
+                        <td>{{client.created_at}}</td>
+                        <td><a href="{% url 'view_client' client.id %}" class="btn btn-outline-primary btn-sm">View</a></td>
+                    </tr>
+                {% endfor %}
+            {% else %}
                 <tr>
-                    <th scope="row">{{client.id}}</th>
-                    <td>{{client.client_first_name}}</td>
-                    <td>{{client.client_last_name}}</td>
-                    <td>{{client.client_email}}</td>
-                    <th>{{client.client_category}}</th>
-                    <td>{{client.client_phone_number}}</td>
-                    <td>{{client.client_address}}</td>
-                    <td>{{client.created_at}}</td>
-                    <td><a href="{% url 'view_client' client.id %}" class="btn btn-outline-primary btn-sm">View</a></td>
+                    <td colspan="9" class="text-center">
+                        <div class="alert alert-info" role="alert">
+                            No clients are added yet
+                        </div>
+                    </td>
                 </tr>
-            {% endfor %}
+            {% endif %}
         </tbody>
 
     </table>
