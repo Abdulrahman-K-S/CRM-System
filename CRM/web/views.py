@@ -3,6 +3,7 @@ from .forms import RegisterUserForm, LoginUserForm, CreateClientForm, UpdateClie
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+from django.contrib import messages
 import logging
 
 from . import models
@@ -19,6 +20,7 @@ def register(request):
         form = RegisterUserForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Registeration is successful.')
             return redirect('login')
     else:
         form = RegisterUserForm()
@@ -39,6 +41,7 @@ def user_login(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
+                messages.success(request, 'Login successful.')
                 return redirect('dashboard')
     else:
         form = LoginUserForm()
@@ -49,6 +52,7 @@ def user_login(request):
 
 def user_logout(request):
     logout(request)
+    messages.success(request, 'Logout successful.')
     return redirect('login')
 
 
@@ -66,6 +70,7 @@ def create_client(request):
         form = CreateClientForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Client created successfully.')
             return redirect('dashboard')
     else:
         form = CreateClientForm()
@@ -89,6 +94,7 @@ def update_client(request, client_id):
         form = UpdateClientForm(request.POST, instance=client_object)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Client updated successfully.')
             return redirect('view_client', client_id=client_id)
     context = {'form': form}
     return render(request, 'web/update-client.html', context)
@@ -98,6 +104,7 @@ def update_client(request, client_id):
 def delete_client(request, client_id):
     client_object = get_object_or_404(models.Client, id=client_id)
     client_object.delete()
+    messages.success(request, 'Client deleted successfully.')
     return redirect('dashboard')
 
 

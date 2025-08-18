@@ -11,6 +11,8 @@
 
 <hr style="border: 1px solid #4564df; margin: 0px 40px; margin-bottom: 25px;">
 
+{% include 'parts/alerts.html' %}
+
 <div class="text-center" style="margin: 0px 100px ;">
     <form action="{% url 'search_clients' %}" method="get">
         <input type="search" name="query" placeholder="Search through clients (id, client name or client category)" class="form-control mr-sm-2">
