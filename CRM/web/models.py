@@ -1,5 +1,7 @@
 from django.db import models
 
+from django.contrib.auth.models import User
+
 # Category Class
 class Category(models.Model):
     category_name = models.CharField(max_length=150)
@@ -17,6 +19,7 @@ class Client(models.Model):
     client_address = models.CharField(max_length=500)
     created_at = models.DateField(auto_now_add=True)
     client_category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    client_owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self): return f'{self.client_first_name} {self.client_last_name}'
 

@@ -58,7 +58,10 @@ def user_logout(request):
 
 @login_required(login_url='login')
 def dashboard(request):
-    clients = models.Client.objects.all()
+    if request.user.is_superuser:
+        clients = models.Client.objects.all()
+    else:
+        clients = models.Client.objects.filter(client_owner=request.user)
     return render(request, 'web/dashboard.html', context={'clients': clients})
 
 
@@ -69,7 +72,9 @@ def create_client(request):
     if request.method == 'POST':
         form = CreateClientForm(request.POST)
         if form.is_valid():
-            form.save()
+            client = form.save(commit=False)
+            client.client_owner = request.user
+            client.save()
             messages.success(request, 'Client created successfully.')
             return redirect('dashboard')
     else:
