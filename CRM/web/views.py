@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import RegisterUserForm, LoginUserForm, CreateClientForm, UpdateClientForm
+from .forms import RegisterUserForm, LoginUserForm, CreateClientForm, UpdateClientForm, CreateCategoryForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
@@ -125,6 +125,25 @@ def search_clients(request):
     except Exception as e:
         logger.error('Error during search_clients function: %s', e)
     return render(request, 'web/search.html', context={'results': results, 'query': query})
+
+
+@login_required(login_url='login')
+def create_category(request):
+    form = CreateCategoryForm()
+
+    if request.method == 'POST':
+        form = CreateCategoryForm(request.POST)
+        if form.is_valid():
+            category = form.save(commit=False)
+            category.category_owner = request.user
+            category.save()
+            messages.success(request, 'Category created successfully.')
+            return redirect('dashboard')
+    else:
+        form = CreateCategoryForm()
+
+    context = {'form': form}
+    return render(request, 'web/create-category.html', context)
 
 
 def custom_404_page(request, exception):

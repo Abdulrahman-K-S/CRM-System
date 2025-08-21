@@ -26,3 +26,9 @@ class UpdateClientForm(forms.ModelForm):
     class Meta:
         model = models.Client
         fields = ['client_first_name', 'client_last_name', 'client_email', 'client_phone_number', 'client_address', 'client_category']
+
+
+class CreateCategoryForm(forms.ModelForm):
+    class Meta:
+        model = models.Category
+        fields = ['category_name']

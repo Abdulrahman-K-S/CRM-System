@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="container bg-light shadow-md p-5 form-layout">
+
+    <h1>Add a Category</h1>
+    <hr style="border: 1px solid #344794; margin: 35px 10px;">
+
+    <form method="post" autocomplete="off">
+        {% csrf_token %}
+
+        {{ form|crispy }}
+
+        <div class="text-center">
+            <br>
+            <a href="{% url 'dashboard' %}" class="btn btn-outline-danger">Cancel</a>
+            <button type="submit" class="btn btn-outline-primary">Add Category</button>
+        </div>
+    </form>
+    
+</div>
+
+{% endblock %}
