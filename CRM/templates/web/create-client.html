@@ -15,6 +15,8 @@
         {{ form|crispy }}
 
         <div class="text-center">
+            <br>
+            <a href="{% url 'dashboard' %}" class="btn btn-outline-danger">Cancel</a>
             <button type="submit" class="btn btn-outline-primary">Add Client</button>
         </div>
     </form>

@@ -70,7 +70,7 @@ def create_client(request):
     form = CreateClientForm()
 
     if request.method == 'POST':
-        form = CreateClientForm(request.POST)
+        form = CreateClientForm(request.POST, user=request.user)
         if form.is_valid():
             client = form.save(commit=False)
             client.client_owner = request.user
@@ -78,7 +78,7 @@ def create_client(request):
             messages.success(request, 'Client created successfully.')
             return redirect('dashboard')
     else:
-        form = CreateClientForm()
+        form = CreateClientForm(user=request.user)
 
     context = {'form': form}
     return render(request, 'web/create-client.html', context)
